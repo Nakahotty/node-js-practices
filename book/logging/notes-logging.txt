@@ -1,0 +1,43 @@
+Node.js Logging
+- console.log vs console.error - the info goes into different log files 
+
+When do we log? 
+    Quick debugging of unexpected behavior during development
+    Browser-based logging for analytics or diagnostics
+    Logs for your server application to log incoming requests, as well as any failures that might have happened
+    Optional debug logs for your library to assist the user with issues
+    Output of your CLI to print progress, confirmation messages or errors
+
+The problem is that your library might want to log things for debugging purposes 
+but really shouldn't clutter the application of the consumer. Instead the consumer 
+should be able to enable the logs if they need to debug something. Your library should be silent 
+by default and leave writing output to the user.
+
+How to establish PINO-PRETTY - just add target pino pretty to your pino 
+pino({transport: {target: 'pino-pretty'}
+
+SET LOG_LEVEL=debug
+DEBUG=express:* - to peek under the hood of express when you debug your app
+
+Library Logs 
+debug('myLib:randomid')
+SET DEBUG=myLib:randomid node index.js   this is how we print our debug logs for our "library" 
+
+Като цяло идеята е, че в браузъра е лесно - там принти в конзолата. В node обаче има различни "канали" и начини, по които да се прави нещо. 
+Най-често всичко това е абстрактно облечено в разни неща като pino/winston/morgan и разни подобни - те вършат цялата работа. Мисълта ми е, 
+че не е лошо да се знае долу-горе какви неща се случват. И защо примерно не е хубаво да се пише console.log
+И примерно не е хубаво да принтираш sensitive information (passwords) в конзолата, защото тези логове стоят някъде и се пазят и всеки с достъп 
+до сървъра може да ги достъпи.
+- Andrey
+
+pino-debug 
+We run SET DEBUG=mylib:randomid node -r pino-debug index.js 
+and the -r is to require the module before 
+even starting our script
+
+Our CLI output (when we build CLI)
+- CLI might be used in the context of a Continuous Integration (CI)
+system and therefore you might want to drop the colors or any fancy decorative output
+- chalk detects CIs and drops the colors for us, it is good 
+but we should be aware if our CLI runs in CI mode or if the output 
+is redirected

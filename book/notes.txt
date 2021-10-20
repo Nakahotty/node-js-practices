@@ -1,0 +1,73 @@
+/* Git Flow Example
+    git checkout main
+    git checkout -b develop
+    git checkout -b feature_branch
+    # work happens on feature branch
+    git checkout develop
+    git merge feature_branch
+    git checkout main
+    git merge develop
+    git branch -d feature_branch
+*/
+
+/*    ES (ECMAScript) Modules - static imports!
+
+- ESM uses the singular word export as opposed to the module.exports
+- default - export an entity with the name default => we can use it with a different name
+- specifiers - relative, absolute, bare, deep import
+- Async (dynamic) imports -> import()
+- Dependency graph - interpreter to build a graph of all the modules
+        phase 1 - construction
+        phase 2 - instantiation 
+        phase 3 - evaluation
+        
+    Phase 1 is about finding all the dots, Phase 2
+connects those creating paths, and, finally, Phase 3 walks 
+through the paths in the right order.
+
+- READ-ONLY vs. LIVE binding 
+    In the import module the entity is READ-ONLY, meaning it cannot change,
+while in the original module from where it is exportes it is LIVE    
+
+  Differences between ESM and CommonJS and how they can work together
+    - ESM runs in strict mode 
+    - Missing references in ESM (exports, module, __filename, __dirname)
+    - Interoperability (оперативна съвместимост)
+    - we cannot import json files directly as modules 
+    - we can use commonjs modules in conditions (if)
+*/
+
+
+
+/*   Callbacks and Events 
+    - callbacks replace the use of the return instruction which is always SYNCHRONOUS
+    - with closures we can reference the environment in which a function was created
+    - CPS (continuation passing style) f(a,b, cb)
+    - setTimeout (asynchronous AS SOON AS POSSIBLE), process.nextTick(asynchronous but after the currently running operation)
+    - AVOID unpredictable functions (API that behaves synchronously under certain conditions and asynchronously under other)
+    this is unleashing Zalgo
+
+    - any error always comes first (always of type Error!)
+    - a program will abort as soon as an exception reaches the EVENT LOOP
+    - fail-fast approach
+
+    OBSERVER PATTERN - дефинира обект, който може да уведомява сет от observer-и (слушатели) когато настъпи промяна в неговия state
+    - основна разлика между Observer и Callback pattern e, че той уведомява много observer-и, докато традиционния CPS callback разпространява
+    резултата си до един listener - callback функцията
+    - observer pattern is implemented in the eventemitter class
+    - MEMORY LEAKS - in the long term, we have to unsubscribe our listeners once there are no longer needed
+    - sometimes, registering more than 10 listeners is completely fine, so we can adjust
+    this limit by using the setMaxListeners() method of the EventEmitter.   
+    - основната разлика между emitt-ване на синхронни и асинхронни събитие в начина по който listener-ите са регистрирани
+    - the nature of the EventEmitter lies in the ability to deal with asynchronous events
+    - EventEmitter vs. callbacks - callbacks should be used when a result must be returned in
+    an asynchronous way, while events should be used when there is a need to
+    communicate that something has happened.
+          EventEmitter gives a better interface and more elegant API 
+          a callback is expected to be invoked exactly once whether its successful or not          
+*/
+
+/*   Asynchronous Control Flow Patterns with Callbacks
+    - 
+    
+*/

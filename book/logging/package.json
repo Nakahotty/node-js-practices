@@ -1,0 +1,22 @@
+{
+  "name": "logging",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "debug": "^4.3.2",
+    "express": "^4.17.1",
+    "express-pino-logger": "^6.0.0",
+    "pino": "^7.0.2",
+    "pino-debug": "^2.0.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^7.1.0"
+  }
+}

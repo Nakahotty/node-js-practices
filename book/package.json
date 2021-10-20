@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "glob": "^7.2.0",
+    "mkdirp": "^1.0.4",
+    "slug": "^5.1.0",
+    "superagent": "^6.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
