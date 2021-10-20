@@ -1,0 +1,6 @@
+node_modules/
+.vscode/
+.prettierrc
+node-express-course/
+book/node_modules/
+book/logging/node_modules/
