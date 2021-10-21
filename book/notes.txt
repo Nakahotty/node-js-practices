@@ -37,7 +37,9 @@ while in the original module from where it is exportes it is LIVE
     - we can use commonjs modules in conditions (if)
 */
 
-
+EVENT LOOP KEY  
+CALL STACK     =>   NODE APIs   =>  CALLBACK QUEUE
+Call stack NEEDS TO BE EMPTY in order to add something from the callback QUEUE
 
 /*   Callbacks and Events 
     - callbacks replace the use of the return instruction which is always SYNCHRONOUS
@@ -68,6 +70,39 @@ while in the original module from where it is exportes it is LIVE
 */
 
 /*   Asynchronous Control Flow Patterns with Callbacks
-    - 
+    - tips to prevent the callback hell 
+        exit as soon as possible (return, continue, break) instead of if ... else 
+        create named functions for callbacks 
+        modularize (split the code into smaller functions)
+
+    SEQUENTIAL AND PARALLEL EXECUTION - async patterns 
+    sequential 
+        start -> task1 -> task2 -> task3 -> end 
+        
+        here we use the output of a task as the input for the next(chain, pipeline, waterfall)
+        this pattern works well if WE KNOW IN ADVANCE WHAT AND HOW MANY TASKS ARE TO BE EXECUTED
+
+    parallel    -   here we do not care about the order, just to be notified when all the tasks are completed
+        task 1
+          |
+        start -> task 2    -> end
+          |
+        task 3
+
+    simple pattern 
     
+    const tasks = [ /* ... */ ]
+
+    let completed = 0
+    tasks.forEach(task => {
+        task(() => {
+            if (++completed === tasks.length) {
+                finish()
+            }
+        })
+    })
+    
+    function finish () {
+    // all the tasks completed
+    }
 */
