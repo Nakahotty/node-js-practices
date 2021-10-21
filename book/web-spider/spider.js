@@ -2,7 +2,33 @@ import fs from 'fs';
 import path from 'path';
 import superagent from 'superagent';
 import mkdirp from 'mkdirp';
-import { urlToFilename } from './utils.js';
+import { urlToFilename, getPageLinks } from './utils.js';
+
+const spiderLinks = (currentUrl, body, nesting, cb) => {
+    if (nesting === 0) {
+        return process.nextTick(cb);
+    }
+
+    const links = getPageLinks(currentUrl, body);
+    if (links.length) {
+        return process.nextTick(cb);
+    }
+
+    let completed = 0;
+    let hasErrors = false;
+
+    const done = (err) => {
+        if (err) {
+            hasErrors = true;
+            cb(err);
+        }
+
+        if (++completed === links.length && !hasErrors)
+            return cb();
+    }
+
+    links.forEach(link => spider(link, nesting - 1, done));
+}
 
 // save content to a file in a path using mkdirp
 const saveFile = (filename, contents, cb) => {
@@ -50,8 +76,3 @@ export const spider = (url, cb) => {
         })
     })
 }
-
-// mkdirp('/foo').then(made =>
-//     console.log(`made directories, starting with ${made}`))
-
-urlToFilename('http://www.example.com');
