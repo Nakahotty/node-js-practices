@@ -4,30 +4,50 @@ import superagent from 'superagent';
 import mkdirp from 'mkdirp';
 import { urlToFilename } from './utils.js';
 
+// save content to a file in a path using mkdirp
+const saveFile = (filename, contents, cb) => {
+    mkdirp(path.dirname(filename), err => {
+        if (err) {
+            return cb(err);
+        }
+
+        fs.writeFile(filename, contents, cb);
+    })
+}
+
+// download url information to a file using superagent
+const download = (url, filename, cb) => {
+    console.log(`Downloading ${url}...`);
+    superagent.get(url).end((err, res) => {
+        if (err) {
+            return cb(err);
+        }
+
+        saveFile(filename, res.text, err => {
+            if (err) {
+                return cb(err);
+            }
+
+            console.log(`Downloaded and saved: ${url}`);
+            cb(null, res.text);
+        })
+    })
+}
+
 export const spider = (url, cb) => {                   
     const filename = urlToFilename(url);
     fs.access(filename, err => {                               // (1)
-        if (err && err.code === 'ENOENT') {   // Error NO ENTity
-            console.log(`Downloading ${url} into ${filename}`);
-            superagent.get(url).end((err, res) => {            // (2)
-                if (err) 
-                    cb(err)
-
-                mkdirp(path.dirname(filename), err => {        // (3)
-                    if (err)
-                        cb(err)
-
-                    fs.writeFile(filename, res.text, err => {   // (4)
-                        if (err)
-                            cb(err)
-
-                        cb(null, filename, true);
-                    })
-                })
-            })
+        if (!err || err.code !== 'ENOENT') {
+            return cb(null, filename, false);
         }
 
-        cb(null, filename, false); // did not write file
+        download(url, filename, err => {
+            if (err) {
+                return cb(err)
+            }
+
+            cb(null, filename, true) // did write file
+        })
     })
 }
 
