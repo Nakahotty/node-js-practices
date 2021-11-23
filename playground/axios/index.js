@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const port = process.env.PORT;
-const v1 = express.Router();
+const v1 = require('./routes/v1/index');
 
 app.use('/api/v1', v1);
 
@@ -17,4 +17,4 @@ app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
 });
 
-// http://localhost:3000/v1/api/summoner/summonerRegion=NA1&summonerName=Nasko
+// http://localhost:3000/api/v1/summoner?region=NA1&summonerName=DidoBate
