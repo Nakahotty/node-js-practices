@@ -11,13 +11,13 @@ const axiosOptions = {
 }
 
 const home = (req, res) => {
-    return res.status(200).send('Home');
+    return res.status(200).send('Summoner Home');
 }
 
 const getSummonerByName = async (region, summonerName) => {
-    const res = await await axios.get(config.summonerByNameUrl(region, summonerName), axiosOptions)
+    const res = await axios.get(config.summonerByNameUrl(region, summonerName), axiosOptions)
     console.log(res.data);
-    return res.path;
+    return res.data;
 };
 
 // axios uses promises so we have to use async/await
