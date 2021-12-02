@@ -12,8 +12,12 @@ eventEmitter.on('greet', name => {
 
 eventEmitter.emit('greet', "Nasko");
 
-eventEmitter.on('subscribe', (engineID) => {
-    console.log(`Engine ${engineID} subscribed to channel.`);
-});
+const subscribeLog = engineID => console.log(`Engine ${engineID} subscribed to channel.`);
+
+eventEmitter.on('subscribe', subscribeLog);
 
 eventEmitter.emit('subscribe', 1111);
+
+eventEmitter.removeListener('subscribe', subscribeLog);
+
+eventEmitter.emit('subscribe', 404);
